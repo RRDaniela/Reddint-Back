@@ -15,8 +15,9 @@ jobs:
 
   build-and-push:
     runs-on: ubuntu-latest
-
     steps:
+    - name: Check out code
+      uses: actions/checkout@v2
     - name: 'Create env file'
       run:
           touch .env &&
