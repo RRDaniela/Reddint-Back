@@ -4,7 +4,7 @@ WORKDIR /usr/src/app
 # Copy files to /usr/src/app
 COPY package*.json ./
 # Install packages
-RUN npm ci
+RUN npm install
 COPY tsconfig*.json ./
 COPY src src
 # Build ts project
