@@ -28,7 +28,11 @@ jobs:
     
     - name: Build docker Image
       run: docker build . --file Dockerfile -t $DOCKER_USER/$REPO_NAME:latest
-    
-    - name: Docker push
+
+    - name: Docker push latest
       run: docker push $DOCKER_USER/$REPO_NAME:latest
-  
+
+    - name: Docker push versioned
+      run: 
+        docker tag $DOCKER_USER/$REPO_NAME:latest $DOCKER_USER/$REPO_NAME:${{ github.sha }} &&
+        docker push $DOCKER_USER/$REPO_NAME:${{ github.sha }}
