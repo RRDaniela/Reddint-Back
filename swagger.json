@@ -6,7 +6,7 @@
   },
   "servers": [
     {
-      "url": "http://localhost:3000"
+      "url": "http://localhost:"
     }
   ],
   "paths": {
@@ -135,14 +135,14 @@
     },
     "/posts/{id}": {
       "get": {
-        "summary": "Get the post with the id",
+        "summary": "Get The subreddint from the post",
         "tags": [
           "Post"
         ],
         "parameters": [
           {
             "in": "path",
-            "name": "post_id",
+            "name": "id",
             "schema": {
               "type": "string",
               "required": true
@@ -153,18 +153,18 @@
         ],
         "responses": {
           "200": {
-            "description": "Get the post with the id",
+            "description": "Get the subreddint from the post",
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "$ref": "#/components/schemas/Post"
+                  "$ref": "#/components/schemas/Subreddint",
+                  "type": "object"
                 }
               }
             }
           },
           "404": {
-            "description": "Post not found"
+            "description": "Subreddint not found"
           }
         }
       },
@@ -543,6 +543,5 @@
       }
     }
   },
-  "channels": {},
   "tags": []
 }
