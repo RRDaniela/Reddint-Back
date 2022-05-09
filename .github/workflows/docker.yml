@@ -19,8 +19,8 @@ jobs:
     steps:
     - name: 'Create env file'
       run:
-          touch .env
-          echo MONGODB_URL="${{secrets.MONGODB_URL}}" >> .env
+          touch .env &&
+          echo MONGODB_URL="${{secrets.MONGODB_URL}}" >> .env &&
           echo JWT_SECRET=${{ secrets.JWT_SECRET }} >> .env
     - name: docker login
       run: docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
