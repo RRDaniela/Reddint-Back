@@ -84,5 +84,31 @@ userRouter.post('/signup', userController.signup);
  */
 userRouter.post('/signin', userController.signin);
 
+/**
+ * @swagger
+ * 
+ * /users/{id}:
+ *  get:
+ *      summary: Get the user with the id
+ *      tags: [User]
+ *      parameters:
+ *      - in: path
+ *        name: user_id
+ *        schema:
+ *          type: string
+ *          required: true
+ * 
+ *      responses:
+ *          200:
+ *              description: Get the user with the id
+ *              content:
+ *                  application/json:
+ *                      schema:
+ *                          $ref: '#/components/schemas/Post'
+ *          404:
+ *              description: User not found
+ */
+ userRouter.get('/:user_id', userController.getUserById);
+
 
 export default userRouter;
