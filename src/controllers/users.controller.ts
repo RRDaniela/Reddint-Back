@@ -2,10 +2,11 @@ import { Request, Response } from 'express';
 import User from '../models/User.model';
 import { passwordHelper } from '../helpers/password.helper';
 import { jwtHelper } from '../helpers/jwt.helper';
+import { getSourceMapRange } from 'typescript';
 
 const userController = {
     signup: async (req: Request, res: Response) => {
-        const { email, password } = req.body;
+        const { email, username, password } = req.body;
 
         const foundUser = await User.findOne({ email });
 
@@ -17,6 +18,7 @@ const userController = {
 
         const user = new User({
             email,
+            username,
             password: await passwordHelper.hash(password),
         });
 
@@ -56,8 +58,17 @@ const userController = {
         res.status(200).json({
             token,
         });
-    }
-};
+    },
+    getUserById: async (req: Request, res: Response) => {
+       try{
+        const { user_id } = req.params;
+        const user = await User.findById(user_id);
+        res.status(200).send(user);
+    }catch(error){
+        res.status(500).json({message: error});
+    }}
+    };
+
 
 
 export default userController;
