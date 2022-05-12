@@ -1,7 +1,16 @@
 import s3, { PutObjectRequest } from 'aws-sdk/clients/s3';
-import { createReadStream } from 'fs';
 
-const s3Client = new s3({});
+if(!process.env.AWS_ACCESS_KEY_ID || !process.env.AWS_SECRET_ACCESS_KEY) {
+    throw new Error('AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY must be set');
+}
+
+
+const s3Client = new s3({
+    credentials: {
+        accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+        secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+    }
+});
 
 const BUCKET = process.env.BUCKET;
 

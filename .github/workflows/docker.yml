@@ -23,11 +23,15 @@ jobs:
           touch .env &&
           echo MONGODB_URL="${{secrets.MONGODB_URL}}" >> .env &&
           echo JWT_SECRET=${{ secrets.JWT_SECRET }} >> .env
+          echo AWS_ACCESS_KEY_ID=${{secrets.AWS_ACCESS_KEY_ID}} >> .env
+          echo AWS_SECRET_ACCESS_KEY=${{secrets.AWS_SECRET_ACCESS_KEY}} >> .env
+          echo AWS_REGION="us-east-1" >> .env
+          echo BUCKET=reddint >> .env
     - name: docker login
       run: docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
     
     - name: Build docker Image
-      run: docker build . --file Dockerfile --build-arg AWS_ACCESS_KEY_ID="${{secrets.AWS_ACCESS_KEY_ID}}" --build-arg AWS_SECRET_ACCESS_KEY="${{secrets.AWS_SECRET_ACCESS_KEY}}" -t $DOCKER_USER/$REPO_NAME:latest
+      run: docker build . --file Dockerfile -t $DOCKER_USER/$REPO_NAME:latest
 
     - name: Docker push latest
       run: docker push $DOCKER_USER/$REPO_NAME:latest
