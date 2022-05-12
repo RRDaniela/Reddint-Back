@@ -1,4 +1,7 @@
 import s3, { PutObjectRequest } from 'aws-sdk/clients/s3';
+import { config } from 'dotenv';
+
+config();
 
 if(!process.env.AWS_ACCESS_KEY_ID || !process.env.AWS_SECRET_ACCESS_KEY) {
     throw new Error('AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY must be set');
