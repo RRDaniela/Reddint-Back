@@ -1,5 +1,7 @@
 import { Router } from "express";
 import userController from "../controllers/users.controller";
+import { authentication } from "../middlewares/authentication";
+import upload from "../middlewares/multer";
 
 const userRouter = Router();
 
@@ -110,5 +112,8 @@ userRouter.post('/signin', userController.signin);
  */
  userRouter.get('/:user_id', userController.getUserById);
 
+ userRouter.put('/avatar/:user_id', authentication ,upload.single('avatar') ,userController.putAvatar);
+
+userRouter.delete('/avatar/:user_id', authentication ,userController.deleteAvatar);
 
 export default userRouter;

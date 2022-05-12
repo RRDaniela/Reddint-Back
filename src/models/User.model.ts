@@ -5,7 +5,10 @@ export interface IUserSchema {
     username:string;
     password: string;
     karma: number;
-    avatar: string;
+    avatar: {
+        url: string;
+        fileName: string;
+    };
     insignia?: string;
 }
 
@@ -33,8 +36,14 @@ const userSchema = new Schema<IUserSchema>({
         default: 0,
     },
     avatar: {
-        type: String,
-        default: 'https://i.kym-cdn.com/entries/icons/facebook/000/021/155/Fish_wearing_a_chicken_smoking_a_cigarette_cover.jpg',
+        url: {
+            type: String,
+            default: 'https://i.kym-cdn.com/entries/icons/facebook/000/021/155/Fish_wearing_a_chicken_smoking_a_cigarette_cover.jpg',
+        },
+        fileName: {
+            type: String,
+            default: null,
+        }
     },
     insignia: {
         type: String,
