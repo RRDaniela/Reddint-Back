@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import Posts from "../models/Posts.model";
 import Comments from "../models/Comments.model";
 import Subreddint from "../models/Subreddint.model";
+import User from "../models/User.model";
 
 const PostsController = {
     getAll: async (req: Request, res: Response) => {
@@ -129,9 +130,17 @@ const PostsController = {
                 });
             }
 
+
             match.upvotes = match.upvotes + 1;
 
             await match.save();
+            
+            const author = await User.findById(match.owner);
+
+            if (author) {
+                author.karma += 1;
+                await author.save();
+            }
 
             return res.status(200).json({ message: 'Post upvoted' });
 
@@ -154,6 +163,12 @@ const PostsController = {
             match.downvotes = match.downvotes + 1;
 
             await match.save();
+            const author = await User.findById(match.owner);
+
+            if (author) {
+                author.karma -= 1;
+                await author.save();
+            }
 
             return res.status(200).json({ message: 'Post downvoted' });
 

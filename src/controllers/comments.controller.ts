@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import { Types } from "mongoose";
 import Comment from "../models/Comments.model";
 import Post from "../models/Posts.model";
+import User from "../models/User.model";
 
 const CommentController = {
   create: async (req: Request, res: Response) => {
@@ -52,10 +53,20 @@ const CommentController = {
             return res.status(404).json({ message: 'Comment not found' });
         }
 
+        const author = await User.findById(comment.owner);
+
         if(mode === 'upvote') {
             comment.upvotes++;
+            if(author) {
+              author.karma++;
+              await author.save();  
+            }
         } else {
             comment.downvotes++;
+            if(author) {
+              author.karma--;
+              await author.save();  
+            }
         }
 
         await comment.save();
