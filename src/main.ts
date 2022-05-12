@@ -26,7 +26,7 @@ const swaggerSpec = {
 
 dotenv.config();
 
-const port = process.env.PORT;
+const port = process.env.PORT || 3000;
 const mongodbUrl = process.env.MONGODB_URL;
 
 if (!mongodbUrl) {
