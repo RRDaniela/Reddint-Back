@@ -21,12 +21,12 @@ jobs:
     - name: 'Create env file'
       run:
           touch .env &&
-          echo MONGODB_URL="${{secrets.MONGODB_URL}}" >> .env &&
-          echo JWT_SECRET=${{ secrets.JWT_SECRET }} >> .env
-          echo AWS_ACCESS_KEY_ID=${{secrets.AWS_ACCESS_KEY_ID}} >> .env
-          echo AWS_SECRET_ACCESS_KEY=${{secrets.AWS_SECRET_ACCESS_KEY}} >> .env
-          echo AWS_REGION="us-east-1" >> .env
-          echo BUCKET=reddint >> .env
+          echo MONGODB_URL="${{secrets.MONGODB_URL}}" >> .env && 
+          echo JWT_SECRET=${{ secrets.JWT_SECRET }} >> .env &&
+          echo AWS_ACCESS_KEY_ID=${{secrets.AWS_ACCESS_KEY_ID}} >> .env && 
+          echo AWS_SECRET_ACCESS_KEY=${{secrets.AWS_SECRET_ACCESS_KEY}} >> .env &&
+          echo AWS_REGION="us-east-1" >> .env &&
+          echo BUCKET=reddint >> .env && cat .env
     - name: docker login
       run: docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
     
